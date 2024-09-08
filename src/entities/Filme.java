@@ -4,6 +4,7 @@ import utils.FilmeUtils;
 import static utils.FilmeUtils.codigoCounter;
 
 
+
 public class Filme {
 
     private int codigo;
@@ -15,20 +16,19 @@ public class Filme {
 
 
     public Filme(
-            int codigo,
             String titulo,
             int anoDeLancamento,
             String categoria,
             String sinopse,
-            String classificacaoEtaria) {
-        int codigocounter;
+            String classificacaoEtaria) 
+    {
         this.codigo = codigoCounter;
         this.titulo = titulo;
         this.anoDeLancamento = anoDeLancamento;
         this.categoria = categoria;
         this.sinopse = sinopse;
         this.classificacaoEtaria = classificacaoEtaria;
-        FilmeUtils.codigoCounter++;
+        codigoCounter++;
     }
 
     public int getCodigo() {
@@ -46,8 +46,9 @@ public class Filme {
     }
 
     public String getTitulo() {
-        return "";
+        return titulo;
     }
 }
+
 
 

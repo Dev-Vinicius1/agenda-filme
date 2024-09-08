@@ -25,6 +25,7 @@ ClienteEstudante : + setMatricula(String matricula)
 ClienteFuncionario : - String cargo
 ClienteFuncionario : + getCargo()
 ClienteFuncionario : + setCargo(String cargo)
+
 ClienteFuncionario : + adicionarFilme(Filme[] filmes,Filme filme)
 
 Cliente <|-- Vip
