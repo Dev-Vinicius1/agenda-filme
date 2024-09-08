@@ -71,26 +71,13 @@ public class Main {
 
     private static void comprarIngressoOuCadastrar(int opcao, Scanner scanner) {
         switch (opcao) {
-            case 1:
-                modoDeExibir = ModoExibir.CADASTRO;
-                break;
-            case 2:
-                logarCliente(scanner);
-                break;
-            case 3:
-                comprarIngresso(scanner);
-                break;
-            case 4:
-                exibirHistorico();
-                break;
-            case 5:
-                MenuUtils.clienteAtual = null;
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida!");
+            case 1 -> modoDeExibir = ModoExibir.CADASTRO;
+            case 2 -> logarCliente(scanner);
+            case 3 -> comprarIngresso(scanner);
+            case 4 -> exibirHistorico();
+            case 5 -> MenuUtils.clienteAtual = null;
+            case 0 -> System.out.println("Saindo...");
+            default -> System.out.println("Opção inválida!");
         }
     }
 
