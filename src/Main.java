@@ -1,14 +1,23 @@
+import entities.Cliente;
+import entities.ClienteDefault;
+import entities.Filme;
+import utils.ClienteUtils;
+import utils.FilmeUtils;
+
 import java.util.*;
+
+import static utils.FilmeUtils.codigoCounter;
 
 public class Main {
     public static void main(String[] args) {
 
-        Map<String, String[]> contatos = new HashMap<>();
+        carregaFilmes();
+
         Scanner scanner = new Scanner(System.in);
 
         int opcao = 0;
 
-        Map<String,Runnable> exibir = new HashMap<String,Runnable>();
+        Map<String, Runnable> exibir = new HashMap<String, Runnable>();
         exibir.put("menu", Main::exibirComprarIngressoECadastro);
         exibir.put("cadastro", Main::exibirCadastro);
 
@@ -22,12 +31,12 @@ public class Main {
                 opcao = 0;
             }
 
-            switch (modoDeExibir){
+            switch (modoDeExibir) {
                 case "menu":
-                    opcaoComprarIngressoECadastro(opcao, scanner);
+                    comprarIngressoOuCadastrar(opcao, scanner);
                     break;
                 case "cadastro":
-                    opcaoCadastro(opcao, scanner,  contatos);
+                    opcaoCadastro(opcao);
                     break;
             }
         } while (opcao != 0);
@@ -35,7 +44,14 @@ public class Main {
         scanner.close();
     }
 
-    private static String modoDeExibir="menu";
+    private static void carregaFilmes() {
+        Filme f1 = new Filme(codigoCounter, "Harold e o Lápis Mágico", 2022, "Animação", "Tudo o que ele desenhou, a realidade vai se tornar. Do diretor Carlos Saldanha.", "Livre");
+        Filme f2 = new Filme(codigoCounter, "Deadpool & Wolverine", 2024, "Ação", "A Marvel Studios apresenta seu erro mais significativo até agora – Deadpool & Wolverine. Um apático Wade Wilson trabalha duro na vida civil.", "18");
+        Filme f3 = new Filme(codigoCounter, "Meu Malvado Favorito 4", 2024, "Comedia", "Nesta sequência, o vilão mais amado do planeta retorna e agora Gru, Lucy, Margo, Edith e Agnes dão as boas-vindas a um novo membro da família: Gru Jr.", "Livre");
+        FilmeUtils.addFilmes(List.of(f1, f2, f3));
+    }
+
+    private static String modoDeExibir = "menu";
     private static Cliente clienteAtual = null;
     private static List<Cliente> clientes = new ArrayList<>();
 
@@ -52,30 +68,25 @@ public class Main {
         System.out.print("Escolha uma opção: ");
     }
 
-    private static void opcaoCadastro(int opcao, Scanner scanner, Map<String, String[]> contatos){
+    private static void opcaoCadastro(int opcao) {
         switch (opcao) {
             case 1:
-                //TODO
-                adicionarContato(scanner, contatos);
+                ClienteUtils.adicionarCliente();
                 break;
             case 2:
-                //TODO
-                detalharContato(scanner, contatos);
+                ClienteUtils.detalharCliente();
                 break;
             case 3:
-                //TODO
-                editarContato(scanner, contatos);
+                ClienteUtils.editarContato();
                 break;
             case 4:
-                //TODO
-                removerContato(scanner, contatos);
+                ClienteUtils.removerCliente();
                 break;
             case 5:
-                //TODO
-                listarContatos(contatos);
+                ClienteUtils.listarClientes();
                 break;
             case 6:
-                modoDeExibir="menu";
+                modoDeExibir = "menu";
                 System.out.println("Voltando...");
                 break;
             case 0:
@@ -86,12 +97,12 @@ public class Main {
         }
     }
 
-    private static void exibirComprarIngressoECadastro(){
+    private static void exibirComprarIngressoECadastro() {
         //TODO
         System.out.println("\n--- Auto Atendimento de Cinema ---");
-        System.out.println("1. Cadastrar Seu Contato");
-        System.out.println("2. Logar com seu Contato");
-        if(clienteAtual!=null){
+        System.out.println("1. Registrar");
+        System.out.println("2. Fazer login");
+        if (clienteAtual != null) {
             System.out.println("3. Comprar ingresso");
             System.out.println("4. Ver historico de ingressos");
             System.out.println("5. Deslogar");
@@ -100,11 +111,11 @@ public class Main {
         System.out.print("Escolha uma opção: ");
     }
 
-    private static void opcaoComprarIngressoECadastro(int opcao, Scanner scanner){
+    private static void comprarIngressoOuCadastrar(int opcao, Scanner scanner) {
         //TODO
         switch (opcao) {
             case 1:
-                modoDeExibir="cadastro";
+                modoDeExibir = "cadastro";
                 break;
             case 2:
                 logarCliente(scanner);
@@ -117,7 +128,7 @@ public class Main {
                 break;
             case 5:
                 //TODO
-                clienteAtual=null;
+                clienteAtual = null;
                 break;
             case 0:
                 System.out.println("Saindo...");
@@ -129,7 +140,7 @@ public class Main {
 
     private static void logarCliente(Scanner scanner) {
         //TODO
-        clienteAtual = new ClienteDefault("nometest","11963079537","email@gmail.com");
+        clienteAtual = new ClienteDefault("nometest", "11963079537", "email@gmail.com");
     }
 
     private static void comprarIngresso(Scanner scanner) {
@@ -140,144 +151,5 @@ public class Main {
         //TODO
     }
 
-    private static void adicionarContato(Scanner scanner, Map<String, String[]> contatos) {
-        try {
-            String nome;
-            String numeroDeTelefone;
-            String email;
-
-            System.out.print("Digite o nome do contato: ");
-            nome = scanner.nextLine();
-            System.out.print("Digite o telefone do contato: ");
-            numeroDeTelefone = scanner.nextLine();
-            System.out.print("Digite o email do contato: ");
-            email = scanner.nextLine();
-
-            if (nome.isEmpty() || numeroDeTelefone.isEmpty() || email.isEmpty()) {
-                System.out.println("---------------------------");
-                throw new Exception("Todos os campos (nome, telefone e e-mail) devem ser preenchidos.");
-            }
-
-            if (contatos.containsKey(numeroDeTelefone)) {
-                System.out.println("---------------------------");
-                throw new Exception("Numero digitado já está sendo usado.");
-            }
-
-            contatos.put(numeroDeTelefone, new String[]{nome, email});
-            System.out.println("---------------------------");
-            System.out.println("Contato Adicionado com sucesso");
-            System.out.println("---------------------------");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void detalharContato(Scanner scanner, Map<String, String[]> contatos) {
-        try {
-            System.out.print("Digite o número do contato que deseja ver os detalhes: ");
-            String numeroDeTelefone = scanner.nextLine();
-            String[] contatoValues = contatos.get(numeroDeTelefone);
-
-            if (contatoValues == null) {
-                System.out.println("---------------------------");
-                throw new Exception("Contato não encontrado");
-            }
-
-            System.out.println("---------------------------");
-            System.out.println("Nome: " + contatoValues[0]
-                    + " | Telefone: " + numeroDeTelefone
-                    + " | Email: " + contatoValues[1]);
-            System.out.println("---------------------------");
-
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void listarContatos(Map<String, String[]> contatos) {
-        if (contatos.isEmpty()) {
-            System.out.println("---------------------------");
-            System.out.println("Agenda vazia");
-            System.out.println("---------------------------");
-            return;
-        }
-        for (Map.Entry<String, String[]> contato : contatos.entrySet()) {
-            String[] contatoValues = contato.getValue();
-            System.out.println("---------------------------");
-            System.out.println(
-                    "Nome: " + contatoValues[0] + " | Telefone: " + contato.getKey() + " | Email: " + contatoValues[1]);
-            System.out.println("---------------------------");
-
-        }
-    }
-
-    private static void editarContato(Scanner scanner, Map<String, String[]> contatos) {
-        try {
-            System.out.print("Digite o telefone do contato que deseja editar: ");
-            String numeroDeTelefone = scanner.nextLine();
-
-            String[] contatoValues = contatos.get(numeroDeTelefone);
-            if (contatoValues == null) {
-                System.out.println("---------------------------");
-                throw new Exception("Contato: " + numeroDeTelefone + " não encontrado");
-            }
-
-            System.out.print("Digite o novo nome (ou pressione Enter para manter o atual): ");
-            String novoNome = scanner.nextLine();
-            if (!novoNome.isEmpty()) {
-                contatoValues[0] = novoNome;
-            }
-
-            System.out.print("Digite o novo e-mail (ou pressione Enter para manter o atual): ");
-            String novoEmail = scanner.nextLine();
-            if (!novoEmail.isEmpty()) {
-                contatoValues[1] = novoEmail;
-            }
-
-            System.out.print("Digite o novo número de telefone (ou pressione Enter para manter o atual): ");
-            String novoNumeroDeTelefone = scanner.nextLine();
-
-            if (!novoNumeroDeTelefone.isEmpty() && !novoNumeroDeTelefone.equals(numeroDeTelefone)) {
-                if (contatos.containsKey(novoNumeroDeTelefone)) {
-                    System.out.println("---------------------------");
-                    throw new Exception("Número de telefone já cadastrado. Atualização não realizada.");
-                }
-
-                contatos.remove(numeroDeTelefone);
-                contatos.put(novoNumeroDeTelefone, contatoValues);
-                System.out.println("---------------------------");
-                System.out.println("Número de telefone atualizado com sucesso.");
-                System.out.println("---------------------------");
-            } else {
-                contatos.put(numeroDeTelefone, contatoValues);
-                System.out.println("---------------------------");
-                System.out.println("Contato atualizado com sucesso.");
-                System.out.println("---------------------------");
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private static void removerContato(Scanner scanner, Map<String, String[]> contatos) {
-        try {
-            System.out.println("Digite o numero de contato para excluir: ");
-            String numeroDeTelefone = scanner.nextLine();
-
-            if (!contatos.containsKey(numeroDeTelefone)) {
-                System.out.println("---------------------------");
-                throw new Exception("Contato:" + numeroDeTelefone + " Não foi encontrado. ");
-            }
-            contatos.remove(numeroDeTelefone);
-            System.out.println("---------------------------");
-            System.out.println("Contato removido com sucesso!");
-            System.out.println("---------------------------");
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
 
 }

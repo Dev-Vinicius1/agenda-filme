@@ -1,3 +1,5 @@
+package entities;
+
 public class ClienteEstudante extends Cliente {
     private String matricula;
 
