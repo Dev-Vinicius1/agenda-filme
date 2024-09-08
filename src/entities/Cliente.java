@@ -3,14 +3,19 @@ package entities;
 import java.util.ArrayList;
 
 public class Cliente {
-
     protected String nome;
     protected String telefone;
     protected String email;
     protected ArrayList<Ingresso> ingressos;
     private final double desconto;
 
-    private Cliente(String nome, String telefone, String email, ArrayList<Ingresso> ingressos, double desconto) {
+    private Cliente(
+      String nome, 
+      String telefone, 
+      String email, 
+      ArrayList<Ingresso> ingressos, double desconto
+    ) 
+    {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
@@ -18,35 +23,53 @@ public class Cliente {
         this.desconto = desconto;
     }
 
-    public Cliente(String nome, String telefone, String email) {
+    public Cliente(String nome, String telefone, String email) 
+    {
         this(nome, telefone, email, new ArrayList<>(), 1);
     }
 
-    public Cliente(String nome, String telefone, String email, double disconto) {
+    public Cliente(String nome, String telefone, String email, double disconto) 
+    {
         this(nome, telefone, email, new ArrayList<>(), disconto);
     }
 
-    public String getNome() {
+    public String getNome() 
+    {
         return nome;
     }
 
-    public String getEmail() {
+   public String getTelefone() 
+   {
+        return telefone;
+   }
+
+   public String getEmail() 
+   {
         return email;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) 
+    {
         this.nome = nome;
     }
 
-    public void setEmail(String email) {
+    public void setTelefone(String telefone) 
+    {
+        this.telefone = telefone;
+    }
+
+    public void setEmail(String email) 
+    {
         this.email = email;
     }
 
-    public void adicionarIngresso(Ingresso ingresso) {
+    public void adicionarIngresso(Ingresso ingresso)
+    {
         ingressos.add(ingresso);
     }
 
-    public String getExtratoDosIngressos() {
+    public String getExtratoDosIngressos() 
+    {
         String extrato = "";
         for (Ingresso ingresso : ingressos) {
             extrato = extrato.concat(ingresso.toString() + "\n");
@@ -54,7 +77,9 @@ public class Cliente {
         return extrato;
     }
 
-    public double getDesconto() {
+
+    public double getDesconto() 
+    {
         return desconto;
     }
 }
