@@ -107,6 +107,11 @@ public class Main {
     }
 
     private static void comprarIngresso(Scanner scanner) {
+        int codigoFilmeEscolhido;
+        Filme filmeSelecionado;
+        Ingresso ingresso;
+        Sala sala;
+
         if (MenuUtils.clienteAtual == null) {
             System.out.println("É necessário estar logado para comprar um ingresso!");
             return;
@@ -114,7 +119,6 @@ public class Main {
 
         FilmeUtils.listaFilmes();
         System.out.println("Escolha o código do filme que deseja comprar o ingresso: ");
-        int codigoFilmeEscolhido;
         try {
             codigoFilmeEscolhido = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
@@ -122,27 +126,29 @@ public class Main {
             return;
         }
 
-        Filme filmeSelecionado = FilmeUtils.getFilme(codigoFilmeEscolhido);
+        filmeSelecionado = FilmeUtils.getFilme(codigoFilmeEscolhido);
 
         if (filmeSelecionado == null) {
             System.out.println("Filme não encontrado.");
             return;
         }
 
-        Sala sala = new Sala(1, 30, filmeSelecionado, LocalDateTime.now());
-        Ingresso ingresso = new Ingresso(sala);
+        sala = new Sala(1, 30, filmeSelecionado, LocalDateTime.now());
+        ingresso = new Ingresso(sala);
         MenuUtils.clienteAtual.adicionarIngresso(ingresso);
 
         System.out.println("Ingresso comprado!");
     }
 
     private static void exibirHistorico() {
+        String extrato;
+
         if (MenuUtils.clienteAtual == null) {
             System.out.println("É necessário estar logado para ver o histórico!");
             return;
         }
 
-        String extrato = MenuUtils.clienteAtual.getExtratoDosIngressos();
+        extrato = MenuUtils.clienteAtual.getExtratoDosIngressos();
 
         if (extrato.isEmpty()) {
             System.out.println("Não foram comprados ingressos.");
