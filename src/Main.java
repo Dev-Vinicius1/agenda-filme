@@ -2,6 +2,7 @@ import entities.*;
 import utils.ClienteUtils;
 import utils.FilmeUtils;
 import utils.MenuUtils;
+import utils.ModoExibir;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -16,13 +17,12 @@ public class Main {
 
         int opcao = 0;
 
-        Map<String, String> exibir = new HashMap<>();
-        exibir.put("menu", MenuUtils.exibirComprarIngressoECadastro());
-        exibir.put("cadastro", MenuUtils.exibirCadastro());
+        Map<ModoExibir, String> exibir = new HashMap<>();
+        exibir.put(ModoExibir.MENU, MenuUtils.exibirComprarIngressoECadastro());
+        exibir.put(ModoExibir.CADASTRO, MenuUtils.exibirCadastro());
 
 
         do {
-            //TODO add try catch because might show null value and not run
             System.out.println(exibir.get(modoDeExibir));
 
             try {
@@ -32,10 +32,10 @@ public class Main {
             }
 
             switch (modoDeExibir) {
-                case "menu":
+                case ModoExibir.MENU:
                     comprarIngressoOuCadastrar(opcao, scanner);
                     break;
-                case "cadastro":
+                case ModoExibir.CADASTRO:
                     opcaoCadastro(opcao);
                     break;
             }
@@ -44,16 +44,14 @@ public class Main {
         scanner.close();
     }
 
+    private static ModoExibir modoDeExibir = ModoExibir.MENU;
+
     private static void carregaFilmes() {
         Filme f1 = new Filme("Harold e o Lápis Mágico", 2022, "Animação", "Tudo o que ele desenhou, a realidade vai se tornar. Do diretor Carlos Saldanha.", "Livre");
         Filme f2 = new Filme("Deadpool & Wolverine", 2024, "Ação", "A Marvel Studios apresenta seu erro mais significativo até agora – Deadpool & Wolverine. Um apático Wade Wilson trabalha duro na vida civil.", "18");
         Filme f3 = new Filme("Meu Malvado Favorito 4", 2024, "Comedia", "Nesta sequência, o vilão mais amado do planeta retorna e agora Gru, Lucy, Margo, Edith e Agnes dão as boas-vindas a um novo membro da família: Gru Jr.", "Livre");
         FilmeUtils.addFilmes(List.of(f1, f2, f3));
     }
-
-    private static String modoDeExibir = "menu";
-    //   private static Cliente clienteAtual = null;
-    private static List<Cliente> clientes = new ArrayList<>();
 
 
     private static void opcaoCadastro(int opcao) {
@@ -74,7 +72,7 @@ public class Main {
                 ClienteUtils.listarClientes();
                 break;
             case 6:
-                modoDeExibir = "menu";
+                modoDeExibir = ModoExibir.MENU;
                 System.out.println("Voltando...");
                 break;
             case 0:
@@ -87,10 +85,9 @@ public class Main {
 
 
     private static void comprarIngressoOuCadastrar(int opcao, Scanner scanner) {
-        //TODO
         switch (opcao) {
             case 1:
-                modoDeExibir = "menu";
+                modoDeExibir = ModoExibir.CADASTRO;
                 break;
             case 2:
                 logarCliente(scanner);
@@ -102,7 +99,6 @@ public class Main {
                 exibirHistorico();
                 break;
             case 5:
-                //TODO
                 MenuUtils.clienteAtual = null;
                 break;
             case 0:
@@ -117,30 +113,26 @@ public class Main {
         String numeroDeTelefone;
         Cliente cliente;
         String resposta;
-      
+
         System.out.println("Digite seu número de telefone: ");
         numeroDeTelefone = scanner.nextLine();
 
         cliente = ClienteUtils.getClientesMap().get(numeroDeTelefone);
-        if (cliente != null) 
-        {
+        if (cliente != null) {
             MenuUtils.clienteAtual = cliente;
             System.out.println("Login realizado com sucesso!");
-        } 
-        else 
-        {
+        } else {
             System.out.println("Cliente não encontrado. Deseja cadastrar um novo? (s/n)");
             resposta = scanner.nextLine();
-            if (resposta.equalsIgnoreCase("s")) 
-            {
-                modoDeExibir = "cadastro";
+            if (resposta.equalsIgnoreCase("s")) {
+                modoDeExibir = ModoExibir.CADASTRO;
             }
         }
 
     }
 
     private static void comprarIngresso(Scanner scanner) {
-        if (clienteAtual == null) {
+        if (MenuUtils.clienteAtual == null) {
             System.out.println("É necessário estar logado para comprar um ingresso!");
             return;
         }
@@ -164,23 +156,23 @@ public class Main {
 
         Sala sala = new Sala(1, 30, filmeSelecionado, LocalDateTime.now());
         Ingresso ingresso = new Ingresso(sala);
-        clienteAtual.adicionarIngresso(ingresso);
+        MenuUtils.clienteAtual.adicionarIngresso(ingresso);
 
         System.out.println("Ingresso comprado!");
 
     }
 
     private static void exibirHistorico() {
-        if(clienteAtual == null){
+        if (MenuUtils.clienteAtual == null) {
             System.out.println("É necessário estar logado para ver o histórico!");
             return;
         }
 
-        String extrato = clienteAtual.getExtratoDosIngressos();
+        String extrato = MenuUtils.clienteAtual.getExtratoDosIngressos();
 
-        if(extrato.isEmpty()){
+        if (extrato.isEmpty()) {
             System.out.println("Não foram comprados ingressos.");
-        }else{
+        } else {
             System.out.println("Histórico de ingressos: ");
             System.out.println(extrato);
         }
