@@ -7,6 +7,7 @@ import utils.FilmeUtils;
 import utils.MenuUtils;
 import utils.ModoExibir;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
@@ -47,9 +48,9 @@ public class Main {
     private static ModoExibir modoDeExibir = ModoExibir.MENU;
 
     private static void carregaFilmes() {
-        Filme f1 = new Filme("Harold e o Lápis Mágico", 2022, "Animação", "Tudo o que ele desenhou, a realidade vai se tornar. Do diretor Carlos Saldanha.", "Livre");
-        Filme f2 = new Filme("Deadpool & Wolverine", 2024, "Ação", "A Marvel Studios apresenta seu erro mais significativo até agora – Deadpool & Wolverine. Um apático Wade Wilson trabalha duro na vida civil.", "18");
-        Filme f3 = new Filme("Meu Malvado Favorito 4", 2024, "Comedia", "Nesta sequência, o vilão mais amado do planeta retorna e agora Gru, Lucy, Margo, Edith e Agnes dão as boas-vindas a um novo membro da família: Gru Jr.", "Livre");
+        Filme f1 = new Filme("Harold e o Lápis Mágico", 2022, "Animação", "Tudo o que ele desenhou, a realidade vai se tornar. Do diretor Carlos Saldanha.", "Livre", new BigDecimal(25));
+        Filme f2 = new Filme("Deadpool & Wolverine", 2024, "Ação", "A Marvel Studios apresenta seu erro mais significativo até agora – Deadpool & Wolverine. Um apático Wade Wilson trabalha duro na vida civil.", "18", new BigDecimal(25));
+        Filme f3 = new Filme("Meu Malvado Favorito 4", 2024, "Comedia", "Nesta sequência, o vilão mais amado do planeta retorna e agora Gru, Lucy, Margo, Edith e Agnes dão as boas-vindas a um novo membro da família: Gru Jr.", "Livre", new BigDecimal(25));
         FilmeUtils.addFilmes(List.of(f1, f2, f3));
     }
 
@@ -134,7 +135,7 @@ public class Main {
         }
 
         sala = new Sala(1, 30, filmeSelecionado, LocalDateTime.now());
-        ingresso = new Ingresso(sala);
+        ingresso = new Ingresso(sala, new BigDecimal(20));
         MenuUtils.clienteAtual.adicionarIngresso(ingresso);
 
         System.out.println("Ingresso comprado!");
