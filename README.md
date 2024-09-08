@@ -15,7 +15,7 @@ Cliente : + setTelefone(String telefone)
 Cliente : + getEmail()
 Cliente : + setEmail(String email)
 Cliente : + getDisconto()
-Cliente : + adicionarIngresso(entities.Ingresso ingresso)
+Cliente : + adicionarIngresso(Ingresso ingresso)
 Cliente : + getExtratoDosIngressos()
 
 ClienteEstudante : - String matricula
@@ -25,11 +25,12 @@ ClienteEstudante : + setMatricula(String matricula)
 ClienteFuncionario : - String cargo
 ClienteFuncionario : + getCargo()
 ClienteFuncionario : + setCargo(String cargo)
-ClienteFuncionario : + adicionarFilme(entities.Filme[] filmes,entities.Filme filme)
+
+ClienteFuncionario : + adicionarFilme(Filme[] filmes,Filme filme)
 
 Cliente <|-- Vip
-Cliente <|-- entities.ClienteFuncionario
-Cliente <|-- entities.ClienteEstudante
+Cliente <|-- ClienteFuncionario
+Cliente <|-- ClienteEstudante
 
 Filme : - int id
 Filme : # String titulo
@@ -39,12 +40,10 @@ Filme : # String sinopse
 Filme : # int classificacaoEtaria
 Filme : + toString()
 
-
 Ingresso: - double preco
 Ingresso: - int sala
 Ingresso: - LocalDateTime sessao
 Ingresso : + toString()
 
-
-entities.Filme <|-- entities.Ingresso
+Filme <|-- Ingresso
 ```
