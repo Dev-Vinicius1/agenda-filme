@@ -1,6 +1,6 @@
 package entities;
 
-
+import utils.FilmeUtils;
 import static utils.FilmeUtils.codigoCounter;
 
 
@@ -20,7 +20,8 @@ public class Filme {
             int anoDeLancamento,
             String categoria,
             String sinopse,
-            String classificacaoEtaria) {
+            String classificacaoEtaria) 
+    {
         this.codigo = codigoCounter;
         this.titulo = titulo;
         this.anoDeLancamento = anoDeLancamento;
@@ -43,5 +44,11 @@ public class Filme {
                 "| Sinopse = " + sinopse + "\n" +
                 "| Classificação = " + classificacaoEtaria + "\n";
     }
+
+    public String getTitulo() {
+        return titulo;
+    }
 }
+
+
 
