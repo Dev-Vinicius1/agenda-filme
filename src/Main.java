@@ -1,12 +1,15 @@
-import entities.*;
+import entities.Cliente;
+import entities.Filme;
+import entities.Ingresso;
+import entities.Sala;
 import utils.ClienteUtils;
 import utils.FilmeUtils;
 import utils.MenuUtils;
 import utils.ModoExibir;
 
 import java.time.LocalDateTime;
-import java.util.*;
-
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -50,36 +53,21 @@ public class Main {
         FilmeUtils.addFilmes(List.of(f1, f2, f3));
     }
 
-
     private static void opcaoCadastro(int opcao) {
         switch (opcao) {
-            case 1:
-                ClienteUtils.adicionarCliente();
-                break;
-            case 2:
-                ClienteUtils.detalharCliente();
-                break;
-            case 3:
-                ClienteUtils.editarContato();
-                break;
-            case 4:
-                ClienteUtils.removerCliente();
-                break;
-            case 5:
-                ClienteUtils.listarClientes();
-                break;
-            case 6:
+            case 1 -> ClienteUtils.adicionarCliente();
+            case 2 -> ClienteUtils.detalharCliente();
+            case 3 -> ClienteUtils.editarContato();
+            case 4 -> ClienteUtils.removerCliente();
+            case 5 -> ClienteUtils.listarClientes();
+            case 6 -> {
                 modoDeExibir = ModoExibir.MENU;
                 System.out.println("Voltando...");
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida!");
+            }
+            case 0 -> System.out.println("Saindo...");
+            default -> System.out.println("Opção inválida!");
         }
     }
-
 
     private static void comprarIngressoOuCadastrar(int opcao, Scanner scanner) {
         switch (opcao) {
@@ -158,7 +146,6 @@ public class Main {
         MenuUtils.clienteAtual.adicionarIngresso(ingresso);
 
         System.out.println("Ingresso comprado!");
-
     }
 
     private static void exibirHistorico() {
@@ -176,6 +163,4 @@ public class Main {
             System.out.println(extrato);
         }
     }
-
-
 }
