@@ -11,6 +11,9 @@ public class FilmeUtils {
     private static final Map<Integer, Filme> filmes = new HashMap<>();
     public static int codigoCounter = 1;
 
+    Filme filme = new Filme(1, "Harry Potter", 2012, "sla", "é bom!", "10");
+    Filme filme1 = new Filme(2, "Top Gun", 2022, "sla2", "é bom2!", "16");
+
     public static void addFilme(Filme filme) 
     {
         filmes.put(filme.getCodigo(), filme);

@@ -1,9 +1,8 @@
-import entities.Cliente;
-import entities.ClienteDefault;
-import entities.Filme;
+import entities.*;
 import utils.ClienteUtils;
 import utils.FilmeUtils;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static utils.FilmeUtils.codigoCounter;
@@ -139,16 +138,67 @@ public class Main {
     }
 
     private static void logarCliente(Scanner scanner) {
-        //TODO
-        clienteAtual = new ClienteDefault("nometest", "11963079537", "email@gmail.com");
+        System.out.println("Digite seu número de telefone: ");
+        String numeroDeTelefone = scanner.nextLine();
+
+        Cliente cliente = ClienteUtils.getClientesMap().get(numeroDeTelefone);
+        if (cliente != null) {
+            clienteAtual = cliente;
+            System.out.println("Login realizado com sucesso!");
+        } else {
+            System.out.println("Cliente não encontrado. Deseja cadastrar um novo? (s/n)");
+            String resposta = scanner.nextLine();
+            if (resposta.equalsIgnoreCase("s")) {
+                modoDeExibir = "cadastro";
+            }
+        }
     }
 
     private static void comprarIngresso(Scanner scanner) {
-        //TODO
+        if (clienteAtual == null) {
+            System.out.println("É necessário estar logado para comprar um ingresso!");
+            return;
+        }
+
+        FilmeUtils.listaFilmes();
+        System.out.println("Escolha o código do filme que deseja comprar o ingresso: ");
+        int codigoFilmeEscolhido;
+        try {
+            codigoFilmeEscolhido = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Código inválido.");
+            return;
+        }
+
+        Filme filmeSelecionado = FilmeUtils.getFilme(codigoFilmeEscolhido);
+
+        if (filmeSelecionado == null) {
+            System.out.println("Filme não encontrado.");
+            return;
+        }
+
+        Sala sala = new Sala(1, 30, filmeSelecionado, LocalDateTime.now());
+        Ingresso ingresso = new Ingresso(sala);
+        clienteAtual.adicionarIngresso(ingresso);
+
+        System.out.println("Ingresso comprado!");
+
     }
 
     private static void exibirHistorico() {
-        //TODO
+        if(clienteAtual == null){
+            System.out.println("É necessário estar logado para ver o histórico!");
+            return;
+        }
+
+        String extrato = clienteAtual.getExtratoDosIngressos();
+
+        if(extrato.isEmpty()){
+            System.out.println("Não foram comprados ingressos.");
+        }else{
+            System.out.println("Histórico de ingressos: ");
+            System.out.println(extrato);
+        }
     }
 
 

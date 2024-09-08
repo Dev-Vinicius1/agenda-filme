@@ -40,6 +40,8 @@ public class ClienteUtils {
 
             Cliente cliente = new Cliente(nome, numeroDeTelefone, email);
 
+
+
             clientes.put(numeroDeTelefone, cliente);
             System.out.println("------------------------------");
             System.out.println("Contato Adicionado com sucesso");
