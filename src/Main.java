@@ -12,18 +12,15 @@ public class Main {
     public static void main(String[] args) {
 
         carregaFilmes();
-
         Scanner scanner = new Scanner(System.in);
-
-        int opcao = 0;
-
-        Map<ModoExibir, String> exibir = new HashMap<>();
-        exibir.put(ModoExibir.MENU, MenuUtils.exibirComprarIngressoECadastro());
-        exibir.put(ModoExibir.CADASTRO, MenuUtils.exibirCadastro());
-
+        int opcao;
 
         do {
-            System.out.println(exibir.get(modoDeExibir));
+            String exibir = switch (modoDeExibir){
+                case ModoExibir.MENU->MenuUtils.exibirComprarIngressoECadastro();
+                case ModoExibir.CADASTRO -> MenuUtils.exibirCadastro();
+            };
+            System.out.println(exibir);
 
             try {
                 opcao = Integer.parseInt(scanner.nextLine());
@@ -120,6 +117,8 @@ public class Main {
         cliente = ClienteUtils.getClientesMap().get(numeroDeTelefone);
         if (cliente != null) {
             MenuUtils.clienteAtual = cliente;
+
+            System.out.println(cliente.getNome());
             System.out.println("Login realizado com sucesso!");
         } else {
             System.out.println("Cliente não encontrado. Deseja cadastrar um novo? (s/n)");
