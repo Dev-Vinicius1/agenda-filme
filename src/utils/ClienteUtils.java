@@ -38,7 +38,7 @@ public class ClienteUtils {
                 System.out.println("C - Funcionário");
                 System.out.println("D - Convencional");
                 categoria = sc.nextLine();
-                if(!categoria.equals("A") && !categoria.equals("B") && !categoria.equals("C") && !categoria.equals("D")){
+                if (!categoria.equals("A") && !categoria.equals("B") && !categoria.equals("C") && !categoria.equals("D")) {
                     System.out.println("Opção inválida.");
                 }
             } while (!categoria.equals("A") && !categoria.equals("B") && !categoria.equals("C") && !categoria.equals("D"));

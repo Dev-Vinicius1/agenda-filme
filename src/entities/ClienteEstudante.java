@@ -3,8 +3,8 @@ package entities;
 public class ClienteEstudante extends Cliente {
     private String matricula;
 
-    public ClienteEstudante(String nome, String telefone, String email,String matricula) {
-        super(nome, telefone, email,0.5);
+    public ClienteEstudante(String nome, String telefone, String email, String matricula) {
+        super(nome, telefone, email, 0.5);
         this.matricula = matricula;
     }
 

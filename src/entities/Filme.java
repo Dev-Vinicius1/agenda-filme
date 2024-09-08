@@ -1,9 +1,6 @@
 package entities;
 
 import utils.FilmeUtils;
-
-import java.math.BigDecimal;
-
 import static utils.FilmeUtils.codigoCounter;
 
 
@@ -16,7 +13,6 @@ public class Filme {
     private String categoria;
     private String sinopse;
     private String classificacaoEtaria;
-    private BigDecimal valorIngresso;
 
 
     public Filme(
@@ -24,8 +20,7 @@ public class Filme {
             int anoDeLancamento,
             String categoria,
             String sinopse,
-            String classificacaoEtaria,
-            BigDecimal valorIngresso)
+            String classificacaoEtaria) 
     {
         this.codigo = codigoCounter;
         this.titulo = titulo;
@@ -33,7 +28,6 @@ public class Filme {
         this.categoria = categoria;
         this.sinopse = sinopse;
         this.classificacaoEtaria = classificacaoEtaria;
-        this.valorIngresso = valorIngresso;
         codigoCounter++;
     }
 
@@ -48,8 +42,7 @@ public class Filme {
                 "| Lançamento = " + anoDeLancamento + "\n" +
                 "| Categoria = " + categoria + "\n" +
                 "| Sinopse = " + sinopse + "\n" +
-                "| Classificação = " + classificacaoEtaria + "\n" +
-                "| Valor do Ingresso = " + valorIngresso + "\n";
+                "| Classificação = " + classificacaoEtaria + "\n";
     }
 
     public String getTitulo() {

@@ -11,7 +11,7 @@ public class ClienteFuncionario extends Cliente {
             String email,
             String cargo
     ) {
-        super(nome, telefone, email,0.3);
+        super(nome, telefone, email, 0.3);
         this.cargo = cargo;
     }
 
@@ -23,9 +23,7 @@ public class ClienteFuncionario extends Cliente {
         this.cargo = cargo;
     }
 
-
-    public void adicionarFilme(ArrayList<Filme> filmes, Filme filme) 
-    {
+    public void adicionarFilme(ArrayList<Filme> filmes, Filme filme) {
         filmes.add(filme);
     }
 }
