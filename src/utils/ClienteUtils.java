@@ -1,6 +1,6 @@
 package utils;
 
-import entities.Cliente;
+import entities.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,41 +18,72 @@ public class ClienteUtils {
     public static void adicionarCliente() {
         try {
             String nome;
-            String numeroDeTelefone;
+            String telefone;
             String email;
+            String categoria;
 
             System.out.print("Digite seu nome: ");
             nome = sc.nextLine();
+
             System.out.print("Digite seu telefone: ");
-            numeroDeTelefone = sc.nextLine();
+            telefone = sc.nextLine();
+
             System.out.print("Digite seu email: ");
             email = sc.nextLine();
 
-            if (nome.isEmpty() || numeroDeTelefone.isEmpty() || email.isEmpty()) {
-                System.out.println("-----------------------------------------------------------------");
-                throw new Exception("Todos os campos (nome, telefone e e-mail) devem ser preenchidos.");
+            do {
+                System.out.println("Digite o código da sua categoria: ");
+                System.out.println("A - VIP");
+                System.out.println("B - Estudante");
+                System.out.println("C - Funcionário");
+                System.out.println("D - Convencional");
+                categoria = sc.nextLine();
+                if(!categoria.equals("A") && !categoria.equals("B") && !categoria.equals("C") && !categoria.equals("D")){
+                    System.out.println("Opção inválida.");
+                }
+            } while (!categoria.equals("A") && !categoria.equals("B") && !categoria.equals("C") && !categoria.equals("D"));
+            System.out.println("Categoria escolhida: " + categoria);
+
+            if (nome.isEmpty() || telefone.isEmpty() || email.isEmpty()) {
+                System.out.println("---------------------------------------");
+                throw new Exception("Todos os campos devem ser preenchidos.");
             }
 
-            if (clientes.containsKey(numeroDeTelefone)) {
+            if (clientes.containsKey(telefone)) {
                 System.out.println("-------------------------------------");
-                throw new Exception("Numero digitado já está sendo usado.");
+                throw new Exception("Número digitado já está sendo usado.");
             }
 
-            Cliente cliente = new Cliente(nome, numeroDeTelefone, email);
+            Cliente cliente = null;
+            switch (categoria) {
+                case "A" -> cliente = new ClienteVip(nome, telefone, email);
+                case "B" -> {
+                    System.out.print("Digite sua matricula: ");
+                    String matricula = sc.nextLine();
+                    cliente = new ClienteEstudante(nome, telefone, email, matricula);
+                }
+                case "C" -> {
+                    System.out.print("Digite seu cargo: ");
+                    String cargo = sc.nextLine();
+                    cliente = new ClienteFuncionario(nome, telefone, email, cargo);
+                }
+                case "D" -> cliente = new ClienteDefault(nome, telefone, email);
+            }
+            clientes.put(telefone, cliente);
+            exibirMensagem("Contato adicionado com sucesso.");
 
-
-
-            clientes.put(numeroDeTelefone, cliente);
-            System.out.println("------------------------------");
-            System.out.println("Contato Adicionado com sucesso");
-            System.out.println("------------------------------");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public static Cliente removerCliente() {
-        Cliente clienteRemovido = null;
+    private static void exibirMensagem(String mensagem) {
+        System.out.println("-".repeat(mensagem.length()));
+        System.out.println(mensagem);
+        System.out.println("-".repeat(mensagem.length()));
+    }
+
+    public static void removerCliente() {
         try {
             System.out.println("Digite o numero de contato para excluir: ");
             String numeroDeTelefone = sc.nextLine();
@@ -61,15 +92,11 @@ public class ClienteUtils {
                 System.out.println("---------------------------");
                 throw new Exception("Contato:" + numeroDeTelefone + " Não foi encontrado. ");
             }
-            clienteRemovido = clientes.remove(numeroDeTelefone);
-            System.out.println("---------------------------");
-            System.out.println("Contato removido com sucesso!");
-            System.out.println("---------------------------");
-
+            clientes.remove(numeroDeTelefone);
+            exibirMensagem("Contato removido com sucesso!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return clienteRemovido;
     }
 
     public static void editarContato() {
@@ -106,14 +133,10 @@ public class ClienteUtils {
 
                 clientes.remove(numeroDeTelefone);
                 clientes.put(novoNumeroDeTelefone, cliente);
-                System.out.println("---------------------------");
-                System.out.println("Número de telefone atualizado com sucesso.");
-                System.out.println("---------------------------");
+                exibirMensagem("Número de telefone atualizado com sucesso.");
             } else {
                 clientes.put(numeroDeTelefone, cliente);
-                System.out.println("---------------------------");
-                System.out.println("Contato atualizado com sucesso.");
-                System.out.println("---------------------------");
+                exibirMensagem("Contato atualizado com sucesso.");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -131,11 +154,9 @@ public class ClienteUtils {
                 throw new Exception("Contato não encontrado");
             }
 
-            System.out.println("---------------------------");
-            System.out.println("Nome: " + cliente.getNome()
+            exibirMensagem("Nome: " + cliente.getNome()
                     + " | Telefone: " + numeroDeTelefone
                     + " | Email: " + cliente.getEmail());
-            System.out.println("---------------------------");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -143,18 +164,14 @@ public class ClienteUtils {
 
     public static void listarClientes() {
         if (clientes.isEmpty()) {
-            System.out.println("-------------------------------");
-            System.out.println("Cadastro de clientes está vazio");
-            System.out.println("-------------------------------");
+            exibirMensagem("Cadastro de clientes está vazio");
             return;
         }
         for (Map.Entry<String, Cliente> contato : clientes.entrySet()) {
             Cliente cliente = contato.getValue();
-            System.out.println("---------------------------");
-            System.out.println("Nome: " + cliente.getNome()
+            exibirMensagem("Nome: " + cliente.getNome()
                     + " | Telefone: " + contato.getKey()
                     + " | Email: " + cliente.getEmail());
-            System.out.println("---------------------------");
         }
     }
 }
