@@ -6,13 +6,11 @@ public enum ModoExibir {
 
     private final String descricao;
 
-    ModoExibir(String descricao)
-    {
-        this.descricao=descricao;
+    ModoExibir(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getDescricao()
-    {
+    public String getDescricao() {
         return descricao;
     }
 }
