@@ -7,40 +7,59 @@ public class Cliente {
     protected String telefone;
     protected String email;
     protected ArrayList<Ingresso> ingressos;
-    private final double disconto;
+    private final double desconto;
 
-    private Cliente(String nome, String telefone, String email, ArrayList<Ingresso>ingressos, double disconto) {
+    private Cliente(
+      String nome, 
+      String telefone, 
+      String email, 
+      ArrayList<Ingresso> ingressos, double desconto
+    ) 
+    {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
-        this.ingressos = ingressos ;
-        this.disconto=disconto;
+        this.ingressos = ingressos;
+        this.desconto = desconto;
     }
 
-    public Cliente(String nome, String telefone, String email) {
-        this(nome,telefone,email,new ArrayList<>(),1);
+    public Cliente(String nome, String telefone, String email) 
+    {
+        this(nome, telefone, email, new ArrayList<>(), 1);
     }
 
-    public Cliente(String nome, String telefone, String email,double disconto) {
-        this(nome,telefone,email,new ArrayList<>(),disconto);
+    public Cliente(String nome, String telefone, String email, double disconto) 
+    {
+        this(nome, telefone, email, new ArrayList<>(), disconto);
     }
-    public String getNome() {
+
+    public String getNome() 
+    {
         return nome;
     }
 
-    public String getTelefone() {
+   public String getTelefone() 
+   {
         return telefone;
+   }
+
+   public String getEmail() 
+   {
+        return email;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) 
+    {
         this.nome = nome;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(String telefone) 
+    {
         this.telefone = telefone;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) 
+    {
         this.email = email;
     }
 
@@ -49,15 +68,18 @@ public class Cliente {
         ingressos.add(ingresso);
     }
 
-    public String getExtratoDosIngressos() {
-        String extrato="";
-        for(Ingresso ingresso: ingressos){
-            extrato=extrato.concat(ingresso.toString()+"\n");
+    public String getExtratoDosIngressos() 
+    {
+        String extrato = "";
+        for (Ingresso ingresso : ingressos) {
+            extrato = extrato.concat(ingresso.toString() + "\n");
         }
         return extrato;
     }
 
-    public double getDisconto() {
-        return disconto;
+
+    public double getDesconto() 
+    {
+        return desconto;
     }
 }

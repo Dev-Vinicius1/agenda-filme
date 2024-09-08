@@ -15,8 +15,6 @@ public class ClienteFuncionario extends Cliente {
         this.cargo = cargo;
     }
 
-
-
     public String getCargo() {
         return cargo;
     }
@@ -25,7 +23,9 @@ public class ClienteFuncionario extends Cliente {
         this.cargo = cargo;
     }
 
-    public void adicionarFilme(ArrayList<Filme> filmes, Filme filme){
+
+    public void adicionarFilme(ArrayList<Filme> filmes, Filme filme) 
+    {
         filmes.add(filme);
     }
 }

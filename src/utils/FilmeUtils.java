@@ -1,6 +1,5 @@
 package utils;
 
-
 import entities.Filme;
 
 import java.util.HashMap;
@@ -9,31 +8,34 @@ import java.util.Map;
 
 public class FilmeUtils {
 
-    private static Map<Integer, Filme> filmes = new HashMap<>();
-    public static int codigocounter = 1;
+    private static final Map<Integer, Filme> filmes = new HashMap<>();
+    public static int codigoCounter = 1;
 
-    public static void addFilme(Filme filme) {
+    public static void addFilme(Filme filme) 
+    {
         filmes.put(filme.getCodigo(), filme);
     }
 
-    public static void addFilmes(List<Filme> filmes){
-        for(Filme filme : filmes){
+    public static void addFilmes(List<Filme> filmes)
+    {
+        for(Filme filme : filmes)
+        {
             addFilme(filme);
         }
     }
-    public static Filme getFilme(int codigo){
+    public static Filme getFilme(int codigo)
+    {
         return filmes.get(codigo);
     }
 
 
-    public static void listaFilmes() {
-        for (Map.Entry<Integer, Filme> filmes : filmes.entrySet()) {
+    public static void listaFilmes() 
+    {
+        for (Map.Entry<Integer, Filme> filmes : filmes.entrySet()) 
+        {
            Filme filmeValues = filmes.getValue();
             System.out.println(filmeValues);
             System.out.println();
-
         }
-
-
     }
 }
