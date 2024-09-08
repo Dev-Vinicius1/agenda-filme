@@ -13,7 +13,7 @@ public class Ingresso {
     public String toString() 
     {
         return "Ingresso\n"
-                + "Título: " + sala.getFilme().getTitulo()
+                + "Título: " + sala.getFilme()
                 + "Sessão: " + sala.getSessao()
                 + "Sala: " + sala.getNumero();
     }
