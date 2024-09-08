@@ -19,8 +19,8 @@ public class Main {
         int opcao;
 
         do {
-            String exibir = switch (modoDeExibir){
-                case ModoExibir.MENU->MenuUtils.exibirComprarIngressoECadastro();
+            String exibir = switch (modoDeExibir) {
+                case ModoExibir.MENU -> MenuUtils.exibirComprarIngressoECadastro();
                 case ModoExibir.CADASTRO -> MenuUtils.exibirCadastro();
             };
             System.out.println(exibir);
@@ -71,11 +71,12 @@ public class Main {
 
     private static void comprarIngressoOuCadastrar(int opcao, Scanner scanner) {
         switch (opcao) {
-            case 1 -> modoDeExibir = ModoExibir.CADASTRO;
+            case 1 -> ClienteUtils.adicionarCliente();
             case 2 -> logarCliente(scanner);
             case 3 -> comprarIngresso(scanner);
             case 4 -> exibirHistorico();
             case 5 -> MenuUtils.clienteAtual = null;
+            case 6 -> modoDeExibir = ModoExibir.CADASTRO;
             case 0 -> System.out.println("Saindo...");
             default -> System.out.println("Opção inválida!");
         }
