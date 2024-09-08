@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.ArrayList;
 
 public class ClienteFuncionario extends Cliente {
@@ -23,7 +25,7 @@ public class ClienteFuncionario extends Cliente {
         this.cargo = cargo;
     }
 
-    public void adicionarFilme(ArrayList<Filme> filmes,Filme filme){
+    public void adicionarFilme(ArrayList<Filme> filmes, Filme filme){
         filmes.add(filme);
     }
 }

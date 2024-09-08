@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.ArrayList;
 
 public class Cliente {
@@ -7,7 +9,7 @@ public class Cliente {
     protected ArrayList<Ingresso> ingressos;
     private final double disconto;
 
-    private Cliente(String nome, String telefone, String email,ArrayList<Ingresso>ingressos,double disconto) {
+    private Cliente(String nome, String telefone, String email, ArrayList<Ingresso>ingressos, double disconto) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;

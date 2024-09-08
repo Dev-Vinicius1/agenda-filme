@@ -1,3 +1,6 @@
+import entities.Cliente;
+import entities.ClienteDefault;
+
 import java.util.*;
 
 public class Main {
