@@ -1,7 +1,4 @@
-import entities.Cliente;
-import entities.Filme;
-import entities.Ingresso;
-import entities.Sala;
+import entities.*;
 import utils.*;
 
 import java.math.BigDecimal;
@@ -69,12 +66,12 @@ public class Main {
 
     private static void comprarIngressoOuCadastrar(int opcao, Scanner scanner) {
         switch (opcao) {
-            case 1 -> ClienteUtils.adicionarCliente();
-            case 2 -> logarCliente(scanner);
-            case 3 -> comprarIngresso(scanner);
-            case 4 -> exibirHistorico();
-            case 5 -> MenuUtils.clienteAtual = null;
-            case 6 -> modoDeExibir = ModoExibir.CADASTRO;
+            case 1 -> {if (MenuUtils.clienteAtual == null) ClienteUtils.adicionarCliente();}
+            case 2 -> {if (MenuUtils.clienteAtual == null) logarCliente(scanner);}
+            case 3 -> {if (MenuUtils.clienteAtual !=null) comprarIngresso(scanner);}
+            case 4 -> {if (MenuUtils.clienteAtual !=null) exibirHistorico();}
+            case 5 -> {if (MenuUtils.clienteAtual !=null) MenuUtils.clienteAtual = null;}
+            case 6 -> {if (MenuUtils.clienteAtual instanceof ClienteFuncionario) modoDeExibir = ModoExibir.CADASTRO;}
             case 0 -> System.out.println(ConsoleColors.GREEN_BOLD +"Saindo..." + ConsoleColors.RESET);
             default -> System.out.println(ConsoleColors.RED_BOLD + "Opção inválida!" + ConsoleColors.RESET);
         }
