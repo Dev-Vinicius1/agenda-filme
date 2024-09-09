@@ -160,7 +160,7 @@ public class Main {
             System.out.println(ConsoleColors.RED_BOLD + "Não foram comprados ingressos." + ConsoleColors.RESET);
         } else {
             System.out.println("Histórico de ingressos: ");
-            System.out.println(extrato);
+            System.out.print(extrato);
         }
     }
 }

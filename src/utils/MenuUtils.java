@@ -10,7 +10,6 @@ public class MenuUtils {
     public static String exibirCadastro() {
 
         return """
-
                 --- Cadastro ---\s
                 1. Adicionar usuário\s
                 2. Detalhar usuário\s
@@ -24,7 +23,7 @@ public class MenuUtils {
 
     public static String exibirComprarIngressoECadastro() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n--- Auto Atendimento de Cinema ---\n");
+        sb.append("--- Auto Atendimento de Cinema ---\n");
 
         if (clienteAtual == null) {
             sb.append("1. Registrar\n");
