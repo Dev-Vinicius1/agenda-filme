@@ -1,6 +1,7 @@
 package entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Sala {
 
@@ -24,7 +25,8 @@ public class Sala {
         return filme;
     }
 
-    public LocalDateTime getSessao() {
-        return sessao;
+    public String getSessao() {
+        DateTimeFormatter formatacaoHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss ");
+        return sessao.format(formatacaoHora);
     }
 }
