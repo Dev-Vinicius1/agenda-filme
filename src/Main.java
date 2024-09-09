@@ -2,10 +2,7 @@ import entities.Cliente;
 import entities.Filme;
 import entities.Ingresso;
 import entities.Sala;
-import utils.ClienteUtils;
-import utils.FilmeUtils;
-import utils.MenuUtils;
-import utils.ModoExibir;
+import utils.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,7 +21,7 @@ public class Main {
                 case ModoExibir.MENU -> MenuUtils.exibirComprarIngressoECadastro();
                 case ModoExibir.CADASTRO -> MenuUtils.exibirCadastro();
             };
-            System.out.println(exibir);
+            System.out.println(ConsoleColors.WHITE_BOLD + exibir + ConsoleColors.RESET);
 
             try {
                 opcao = Integer.parseInt(scanner.nextLine());
@@ -65,8 +62,8 @@ public class Main {
                 modoDeExibir = ModoExibir.MENU;
                 System.out.println("Voltando...");
             }
-            case 0 -> System.out.println("Saindo...");
-            default -> System.out.println("Opção inválida!");
+            case 0 -> System.out.println(ConsoleColors.GREEN_BOLD +"Saindo..." + ConsoleColors.RESET);
+            default -> System.out.println(ConsoleColors.RED_BOLD +"Opção inválida!" + ConsoleColors.RESET);
         }
     }
 
@@ -78,8 +75,8 @@ public class Main {
             case 4 -> exibirHistorico();
             case 5 -> MenuUtils.clienteAtual = null;
             case 6 -> modoDeExibir = ModoExibir.CADASTRO;
-            case 0 -> System.out.println("Saindo...");
-            default -> System.out.println("Opção inválida!");
+            case 0 -> System.out.println(ConsoleColors.GREEN_BOLD +"Saindo..." + ConsoleColors.RESET);
+            default -> System.out.println(ConsoleColors.RED_BOLD + "Opção inválida!" + ConsoleColors.RESET);
         }
     }
 
@@ -88,17 +85,16 @@ public class Main {
         Cliente cliente;
         String resposta;
 
-        System.out.println("Digite seu número de telefone: ");
+        System.out.println(ConsoleColors.BLUE_BOLD +"Digite seu número de telefone: " + ConsoleColors.RESET);
         numeroDeTelefone = scanner.nextLine();
 
         cliente = ClienteUtils.getClientesMap().get(numeroDeTelefone);
         if (cliente != null) {
             MenuUtils.clienteAtual = cliente;
 
-            System.out.println(cliente.getNome());
-            System.out.println("Login realizado com sucesso!");
+            System.out.println(ConsoleColors.GREEN_BOLD +"Olá, " +cliente.getNome()+" - Seja bem vindo" + ConsoleColors.RESET);
         } else {
-            System.out.println("Cliente não encontrado. Deseja cadastrar um novo? (s/n)");
+            System.out.println(ConsoleColors.YELLOW_BOLD +"Cliente não encontrado. Deseja cadastrar um novo? (s/n)" + ConsoleColors.RESET);
             resposta = scanner.nextLine();
             if (resposta.equalsIgnoreCase("s")) {
                 modoDeExibir = ModoExibir.CADASTRO;
@@ -114,23 +110,23 @@ public class Main {
         Sala sala;
 
         if (MenuUtils.clienteAtual == null) {
-            System.out.println("É necessário estar logado para comprar um ingresso!");
+            System.out.println(ConsoleColors.RED_BOLD + "É necessário estar logado para comprar um ingresso!" + ConsoleColors.RESET);
             return;
         }
 
         FilmeUtils.listaFilmes();
-        System.out.println("Escolha o código do filme que deseja comprar o ingresso: ");
+        System.out.println(ConsoleColors.BLUE_BOLD + "Escolha o código do filme que deseja comprar o ingresso: " + ConsoleColors.RESET);
         try {
             codigoFilmeEscolhido = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            System.out.println("Código inválido.");
+            System.out.println(ConsoleColors.RED_BOLD + "Código inválido." + ConsoleColors.RESET);
             return;
         }
 
         filmeSelecionado = FilmeUtils.getFilme(codigoFilmeEscolhido);
 
         if (filmeSelecionado == null) {
-            System.out.println("Filme não encontrado.");
+            System.out.println(ConsoleColors.RED_BOLD + "Filme não encontrado." + ConsoleColors.RESET);
             return;
         }
 
@@ -138,21 +134,21 @@ public class Main {
         ingresso = new Ingresso(sala, new BigDecimal(20));
         MenuUtils.clienteAtual.adicionarIngresso(ingresso);
 
-        System.out.println("Ingresso comprado!");
+        System.out.println(ConsoleColors.GREEN_BOLD +"Ingresso comprado!" + ConsoleColors.RESET);
     }
 
     private static void exibirHistorico() {
         String extrato;
 
         if (MenuUtils.clienteAtual == null) {
-            System.out.println("É necessário estar logado para ver o histórico!");
+            System.out.println(ConsoleColors.RED_BOLD + "É necessário estar logado para ver o histórico!" + ConsoleColors.RESET);
             return;
         }
 
         extrato = MenuUtils.clienteAtual.getExtratoDosIngressos();
 
         if (extrato.isEmpty()) {
-            System.out.println("Não foram comprados ingressos.");
+            System.out.println(ConsoleColors.RED_BOLD + "Não foram comprados ingressos." + ConsoleColors.RESET);
         } else {
             System.out.println("Histórico de ingressos: ");
             System.out.println(extrato);
