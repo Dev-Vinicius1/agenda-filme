@@ -59,20 +59,32 @@ public class Main {
                 modoDeExibir = ModoExibir.MENU;
                 System.out.println("Voltando...");
             }
-            case 0 -> System.out.println(ConsoleColors.GREEN_BOLD +"Saindo..." + ConsoleColors.RESET);
-            default -> System.out.println(ConsoleColors.RED_BOLD +"Opção inválida!" + ConsoleColors.RESET);
+            case 0 -> System.out.println(ConsoleColors.GREEN_BOLD + "Saindo..." + ConsoleColors.RESET);
+            default -> System.out.println(ConsoleColors.RED_BOLD + "Opção inválida!" + ConsoleColors.RESET);
         }
     }
 
     private static void comprarIngressoOuCadastrar(int opcao, Scanner scanner) {
         switch (opcao) {
-            case 1 -> {if (MenuUtils.clienteAtual == null) ClienteUtils.adicionarCliente();}
-            case 2 -> {if (MenuUtils.clienteAtual == null) logarCliente(scanner);}
-            case 3 -> {if (MenuUtils.clienteAtual !=null) comprarIngresso(scanner);}
-            case 4 -> {if (MenuUtils.clienteAtual !=null) exibirHistorico();}
-            case 5 -> {if (MenuUtils.clienteAtual !=null) MenuUtils.clienteAtual = null;}
-            case 6 -> {if (MenuUtils.clienteAtual instanceof ClienteFuncionario) modoDeExibir = ModoExibir.CADASTRO;}
-            case 0 -> System.out.println(ConsoleColors.GREEN_BOLD +"Saindo..." + ConsoleColors.RESET);
+            case 1 -> {
+                if (MenuUtils.clienteAtual == null) ClienteUtils.adicionarCliente();
+            }
+            case 2 -> {
+                if (MenuUtils.clienteAtual == null) logarCliente(scanner);
+            }
+            case 3 -> {
+                if (MenuUtils.clienteAtual != null) comprarIngresso(scanner);
+            }
+            case 4 -> {
+                if (MenuUtils.clienteAtual != null) exibirHistorico();
+            }
+            case 5 -> {
+                if (MenuUtils.clienteAtual != null) MenuUtils.clienteAtual = null;
+            }
+            case 6 -> {
+                if (MenuUtils.clienteAtual instanceof ClienteFuncionario) modoDeExibir = ModoExibir.CADASTRO;
+            }
+            case 0 -> System.out.println(ConsoleColors.GREEN_BOLD + "Saindo..." + ConsoleColors.RESET);
             default -> System.out.println(ConsoleColors.RED_BOLD + "Opção inválida!" + ConsoleColors.RESET);
         }
     }
@@ -82,16 +94,16 @@ public class Main {
         Cliente cliente;
         String resposta;
 
-        System.out.println(ConsoleColors.BLUE_BOLD +"Digite seu número de telefone: " + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.BLUE_BOLD + "Digite seu número de telefone: " + ConsoleColors.RESET);
         numeroDeTelefone = scanner.nextLine();
 
         cliente = ClienteUtils.getClientesMap().get(numeroDeTelefone);
         if (cliente != null) {
             MenuUtils.clienteAtual = cliente;
 
-            System.out.println(ConsoleColors.GREEN_BOLD +"Olá, " +cliente.getNome()+" - Seja bem vindo" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN_BOLD + "Olá, " + cliente.getNome() + " - Seja bem vindo" + ConsoleColors.RESET);
         } else {
-            System.out.println(ConsoleColors.YELLOW_BOLD +"Cliente não encontrado. Deseja cadastrar um novo? (s/n)" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.YELLOW_BOLD + "Cliente não encontrado. Deseja cadastrar um novo? (s/n)" + ConsoleColors.RESET);
             resposta = scanner.nextLine();
             if (resposta.equalsIgnoreCase("s")) {
                 modoDeExibir = ModoExibir.CADASTRO;
@@ -131,7 +143,7 @@ public class Main {
         ingresso = new Ingresso(sala, new BigDecimal(20));
         MenuUtils.clienteAtual.adicionarIngresso(ingresso);
 
-        System.out.println(ConsoleColors.GREEN_BOLD +"Ingresso comprado!" + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN_BOLD + "Ingresso comprado!" + ConsoleColors.RESET);
     }
 
     private static void exibirHistorico() {
