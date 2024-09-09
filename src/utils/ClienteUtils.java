@@ -30,9 +30,6 @@ public class ClienteUtils {
                 Integer.parseInt(tel);
                 telefone = tel;
 
-
-
-
             System.out.print(ConsoleColors.BLUE_BOLD + "Digite seu email: " + ConsoleColors.RESET);
             email = sc.nextLine();
 
