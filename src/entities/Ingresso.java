@@ -28,6 +28,6 @@ public class Ingresso {
                 + "Título: " + sala.getFilme()
                 + "Sessão: " + sala.getSessao()
                 + "Sala: " + sala.getNumero()
-                + "Valor Ingresso: " + getValorIngresso();
+                + " Valor Ingresso: R$" + getValorIngresso();
     }
 }

@@ -3,6 +3,7 @@ package entities;
 import utils.FilmeUtils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static utils.FilmeUtils.codigoCounter;
 
@@ -54,7 +55,7 @@ public class Filme {
                 "| Categoria = " + categoria + "\n" +
                 "| Sinopse = " + sinopse + "\n" +
                 "| Classificação = " + classificacaoEtaria + "\n" +
-                "| Valor Ingresso = R$" + valorIngresso + "\n";
+                "| Valor Ingresso = R$" + valorIngresso.setScale(2, RoundingMode.HALF_EVEN) + "\n";
     }
 
     public String getTitulo() {
