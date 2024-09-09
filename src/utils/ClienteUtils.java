@@ -18,15 +18,20 @@ public class ClienteUtils {
     public static void adicionarCliente() {
         try {
             String nome;
-            String telefone;
+            String telefone = null;
             String email;
             String categoria;
 
             System.out.print("Digite seu nome: ");
             nome = sc.nextLine();
 
-            System.out.print("Digite seu telefone: ");
-            telefone = sc.nextLine();
+                System.out.print("Digite seu telefone: ");
+                String tel = sc.nextLine();
+                Integer.parseInt(tel);
+                telefone = tel;
+
+
+
 
             System.out.print("Digite seu email: ");
             email = sc.nextLine();
@@ -37,7 +42,7 @@ public class ClienteUtils {
                 System.out.println("B - Estudante");
                 System.out.println("C - Funcionário");
                 System.out.println("D - Convencional");
-                categoria = sc.nextLine();
+                categoria = sc.nextLine().trim().toUpperCase();
                 if (!categoria.equals("A") && !categoria.equals("B") && !categoria.equals("C") && !categoria.equals("D")) {
                     System.out.println("Opção inválida.");
                 }
@@ -71,6 +76,8 @@ public class ClienteUtils {
             }
             clientes.put(telefone, cliente);
             exibirMensagem("Contato adicionado com sucesso.");
+        }catch (NumberFormatException e){
+            System.out.println(ConsoleColors.RED_BOLD + "O telefone deve ser númerico. " + ConsoleColors.RESET);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
