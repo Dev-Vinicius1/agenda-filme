@@ -23,7 +23,7 @@ public class Main {
             try {
                 opcao = Integer.parseInt(scanner.nextLine());
             } catch (Exception e) {
-                opcao = 0;
+                opcao = -1;
             }
 
             switch (modoDeExibir) {
