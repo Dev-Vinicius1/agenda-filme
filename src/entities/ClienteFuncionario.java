@@ -11,7 +11,7 @@ public class ClienteFuncionario extends Cliente {
             String email,
             String cargo
     ) {
-        super(nome, telefone, email, 0.3);
+        super(nome, telefone, email, 0.7);
         this.cargo = cargo;
     }
 

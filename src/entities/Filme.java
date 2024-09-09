@@ -42,6 +42,10 @@ public class Filme {
         return codigo;
     }
 
+    public BigDecimal getValorIngresso() {
+        return valorIngresso;
+    }
+
     @Override
     public String toString() {
         return "| COD = " + codigo + "\n" +

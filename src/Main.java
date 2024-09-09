@@ -140,7 +140,7 @@ public class Main {
         }
 
         sala = new Sala(1, 30, filmeSelecionado, LocalDateTime.now());
-        ingresso = new Ingresso(sala, new BigDecimal(20));
+        ingresso = new Ingresso(sala, filmeSelecionado.getValorIngresso().multiply(BigDecimal.valueOf(MenuUtils.clienteAtual.getDesconto())));
         MenuUtils.clienteAtual.adicionarIngresso(ingresso);
 
         System.out.println(ConsoleColors.GREEN_BOLD + "Ingresso comprado!" + ConsoleColors.RESET);
